@@ -19,7 +19,6 @@ div.upload-container {
   margin-left: auto;
   margin-right: auto;
   border-radius: 16px;
-  cursor: pointer;
 }
 
 .upload-container p {
@@ -31,4 +30,20 @@ div.upload-container {
 
 .upload-container img {
   width: 300px;
+}
+
+button {
+  cursor: pointer;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: block;
+  width: 100%;
+  font-family: Poppins;
+  font-weight: 700;
+  font-size: 27px;
+  background: #010203;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
 }
