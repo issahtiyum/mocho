@@ -5,7 +5,7 @@ import {
 } from "@google/genai";
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyBqImbKHd3Vnu9NUGNNHLIkIJgQ2bIMMGA",
+  apiKey: import.meta.env.VITE_GEMINI_API_KEY,
 });
 
 export default async function calculateCalories(uploadedImage) {
