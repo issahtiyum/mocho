@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
+import calculateCalories from "./ai";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
-
   function handleInputClick() {
     fileInputRef.current.click();
   }
@@ -11,21 +11,22 @@ export default function App() {
     const image = e.target.files[0];
     if (image) {
       const imageUrl = URL.createObjectURL(image);
-      console.log(image);
-      console.log(imageUrl);
-      setSelectedImage(imageUrl);
+      // console.log(imageUrl);
+      setSelectedImage({ image, imageUrl });
     }
   }
   return (
     <>
       <h1>Mocho</h1>
       <div className="upload-container">
-        {selectedImage ? (
+        {selectedImage?.imageUrl ? (
           <>
-            <img src={selectedImage} alt="Selected Image" />
+            <img src={selectedImage.imageUrl} alt="Selected Image" />
             <div className="buttons-container">
               <button onClick={handleInputClick}>Change Image</button>
-              <button> Check Calories</button>
+              <button onClick={() => calculateCalories(selectedImage.image)}>
+                Check Calories
+              </button>
             </div>
           </>
         ) : (
