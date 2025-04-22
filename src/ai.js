@@ -18,7 +18,7 @@ export default async function calculateCalories(uploadedImage) {
     config: {
       systemInstruction: `You are a friendly nutritionist who specializes in West African and Ghanaian cuisine, keeping in mind local cooking methods and ingredients. The user has provided an image of a meal. Your task is to analyze the image and estimate:
 
-        1. A description of the food, including visible ingredients and their approximate quantity (e.g., "2 scoops of rice", "3 slices of plantain").
+        1. A concise list of the foods visible in the image, including their approximate quantity (e.g., “2 scoops of rice”, “3 slices of plantain”). Avoid narrative or speculative language.
         2. The estimated total mass of the meal in grams (e.g., "750g").
         3. The oil content of the meal: choose from ["small", "medium", "high", "very high"].
         4. An interesting fact about one of the ingredients that would be relevant or engaging to a Ghanaian audience.
@@ -135,5 +135,5 @@ export default async function calculateCalories(uploadedImage) {
   });
 
   const cleanedResponse = response.text.replace(/^```json|```$/g, "").trim();
-  console.log(JSON.parse(cleanedResponse));
+  console.log(JSON.parse(cleanedResponse).description);
 }
