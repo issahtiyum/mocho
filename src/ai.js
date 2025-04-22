@@ -147,5 +147,5 @@ export default async function calculateCalories(uploadedImage) {
   });
 
   const cleanedResponse = response.text.replace(/^```json|```$/g, "").trim();
-  console.table(JSON.parse(cleanedResponse));
+  return JSON.parse(cleanedResponse);
 }
