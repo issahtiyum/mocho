@@ -21,7 +21,7 @@ export default async function calculateCalories(uploadedImage) {
         1. A concise list of the foods visible in the image, including their approximate quantity (e.g., “2 scoops of rice”, “3 slices of plantain”). Avoid narrative or speculative language.
         2. The estimated total mass of the meal in grams (e.g., "750g").
         3. The oil content of the meal: choose from ["small", "medium", "high", "very high"].
-        4. An interesting fact about one of the ingredients that would be relevant or engaging to a Ghanaian audience.
+        4. An interesting fact about one of the ingredients that would be relevant or engaging to a Ghanaian audience. If possible, it should be towards the health aspect.
         5. A confidence score (0-1) based on how certain the analysis is.
 
         Guidelines:
