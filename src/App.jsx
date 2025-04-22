@@ -13,7 +13,7 @@ export default function App() {
     const image = e.target.files[0];
     if (image) {
       const imageUrl = URL.createObjectURL(image);
-      setSelectedImage({ image, imageUrl });
+      setSelectedImage({ imageFile: image, imageUrl });
     }
   }
   return (
@@ -32,7 +32,7 @@ export default function App() {
                   <button
                     onClick={async () => {
                       setIsLoading(true);
-                      await calculateCalories(selectedImage.image);
+                      await calculateCalories(selectedImage.imageFile);
                       setIsLoading(false);
                     }}
                   >
