@@ -23,6 +23,7 @@ export default async function calculateCalories(uploadedImage) {
         3. The oil content of the meal: choose from ["small", "medium", "high", "very high"].
         4. An interesting fact about one of the ingredients that would be relevant or engaging to a Ghanaian audience. If possible, it should be towards the health aspect.
         5. A confidence score (0-1) based on how certain the analysis is.
+        6. A number from 0 to 10 showing how healthy the food is, based on portion size, ingredients, and oil content.
 
         Guidelines:
         - Use visible scale cues — such as spoons, takeaway bowls, hands, or mobile phones — to improve accuracy in portion and mass estimation
@@ -35,6 +36,7 @@ export default async function calculateCalories(uploadedImage) {
         - Be culturally aware and use food names and terms common in Ghana (e.g., waakye, kenkey, shito, etc.).
         - If you're uncertain about quantity, estimate conservatively but realistically.
         - If the image is unclear or ambiguous, lower the confidence score and make an informed but conservative estimate.
+        - Use Ghanaian standards — what's considered a balanced meal locally?
 `,
     },
     contents: [
@@ -44,11 +46,12 @@ export default async function calculateCalories(uploadedImage) {
         Analyse the image and return the result as a JSON object in the following format:
         {
           "description": "...",
-          "estimated_mass": "...g",
-          "estimated_calories": "... kcal"
-          "oil_content": "small | medium | high | very high",
+          "estimatedMass": "...g",
+          "estimatedCalories": "... kcal"
+          "oilContent": "small | medium | high | very high",
           "confidence": 0.00,
-          "interesting_fact": "..."
+          "healthRating": 0.00
+          "interestingFact": "..."
         }
         The response should begin at the opening curly brace and end at the final curly brace. No additional text should be added.
 
@@ -60,12 +63,13 @@ export default async function calculateCalories(uploadedImage) {
         Image Description: A plate with waakye, fried plantain, spaghetti, boiled egg, and wele.
         Response:
         {
-          "description": "A generous plate of waakye with 2 scoops of rice and beans, 4 slices of fried plantain, a handful of spaghetti, 1 boiled egg, and 3 small pieces of wele.",
-          "estimated_mass": "750g",
-          "estimated_calories": "850 kcal",
-          "oil_content": "high",
+          "description": "2 scoops of waakye, 4 slices of fried plantain, a handful of spaghetti, 1 boiled egg, and 3 small pieces of wele.",
+          "estimatedMass": "750g",
+          "estimatedCalories": "850 kcal",
+          "oilContent": "high",
           "confidence": 0.87,
-          "interesting_fact": "Wele (cow skin) is a local favorite — it’s low in calories but should be eaten in moderation due to processing methods."
+          "healthRating": 5.5,
+          "interestingFact": "Wele (cow skin) is a local favorite — it’s low in calories but should be eaten in moderation due to processing methods."
         }
 
         ---
@@ -74,13 +78,15 @@ export default async function calculateCalories(uploadedImage) {
         Image Description: A bowl of fufu with light soup and goat meat.
         Response:
         {
-          "description": "2 medium balls of fufu served in light soup with 4 chunks of goat meat.",
-          "estimated_mass": "680g",
-          "estimated_calories": "720 kcal",
-          "oil_content": "medium",
+          "description": "2 medium balls of fufu with light soup and 4 chunks of goat meat.",
+          "estimatedMass": "680g",
+          "estimatedCalories": "720 kcal",
+          "oilContent": "medium",
           "confidence": 0.9,
-          "interesting_fact": "Goat meat is leaner than beef and is a good source of iron, which helps boost energy levels — something every Ghanaian needs!"
+          "healthRating": 6.8,
+          "interestingFact": "Goat meat is leaner than beef and is a good source of iron, which helps boost energy levels — something every Ghanaian needs!"
         }
+
 
         ---
 
@@ -88,13 +94,15 @@ export default async function calculateCalories(uploadedImage) {
         Image Description: Banku with okro stew and grilled tilapia.
         Response:
         {
-          "description": "2 balls of banku served with thick okro stew and 1 medium-sized grilled tilapia.",
-          "estimated_mass": "800g",
-          "estimated_calories": "780 kcal",
-          "oil_content": "very high",
+          "description": "2 balls of banku with thick okro stew and 1 medium-sized grilled tilapia.",
+          "estimatedMass": "800g",
+          "estimatedCalories": "780 kcal",
+          "oilContent": "very high",
           "confidence": 0.84,
-          "interesting_fact": "Okro is packed with fiber and helps reduce blood sugar — a good reason to keep eating your okro stew!"
+          "healthRating": 5.0,
+          "interestingFact": "Okro is packed with fiber and helps reduce blood sugar — a good reason to keep eating your okro stew!"
         }
+
 
         ---
 
@@ -102,13 +110,15 @@ export default async function calculateCalories(uploadedImage) {
         Image Description: A plate of jollof rice with chicken and shito.
         Response:
         {
-          "description": "About 2 cups of jollof rice served with 1 grilled chicken thigh and a spoonful of shito.",
-          "estimated_mass": "650g",
-          "estimated_calories": "790 kcal",
-          "oil_content": "high",
+          "description": "2 cups of jollof rice with 1 grilled chicken thigh and a spoonful of shito.",
+          "estimatedMass": "650g",
+          "estimatedCalories": "820 kcal",
+          "oilContent": "high",
           "confidence": 0.88,
-          "interesting_fact": "Shito, Ghana's spicy black pepper sauce, can be high in oil, but it's loved for its deep flavor and long shelf life."
+          "healthRating": 5.8,
+          "interestingFact": "Shito, Ghana's spicy black pepper sauce, can be high in oil, but it's loved for its deep flavor and long shelf life."
         }
+
 
         ---
 
@@ -117,12 +127,14 @@ export default async function calculateCalories(uploadedImage) {
         Response:
         {
           "description": "1 large ball of kenkey with 1 fried tilapia and 2 tablespoons of pepper sauce.",
-          "estimated_mass": "720g",
-          "estimated_calories": "700 kcal",
-          "oil_content": "medium",
+          "estimatedMass": "720g",
+          "estimatedCalories": "790 kcal",
+          "oilContent": "medium",
           "confidence": 0.85,
-          "interesting_fact": "Kenkey, made from fermented maize, helps promote gut health thanks to its probiotic-like fermentation process."
+          "healthRating": 6.2,
+          "interestingFact": "Kenkey, made from fermented maize, helps promote gut health thanks to its probiotic-like fermentation process."
         }
+
 
         ---
 
