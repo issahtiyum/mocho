@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import calculateCalories from "./ai";
+import Loader from "./Components/Loader";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -24,18 +25,24 @@ export default function App() {
         {selectedImage?.imageUrl ? (
           <>
             <img src={selectedImage.imageUrl} alt="Selected Image" />
-            <div className="buttons-container">
-              <button onClick={handleInputClick}>Change Image</button>
-              <button
-                onClick={async () => {
-                  setIsLoading(true);
-                  await calculateCalories(selectedImage.image);
-                  setIsLoading(false);
-                }}
-              >
-                {isLoading ? "Loading..." : "Check Calories"}
-              </button>
-            </div>
+            {isLoading ? (
+              <span class="loader"></span>
+            ) : (
+              <>
+                <div className="buttons-container">
+                  <button onClick={handleInputClick}>Change Image</button>
+                  <button
+                    onClick={async () => {
+                      setIsLoading(true);
+                      await calculateCalories(selectedImage.image);
+                      setIsLoading(false);
+                    }}
+                  >
+                    Check Calories
+                  </button>
+                </div>
+              </>
+            )}
           </>
         ) : (
           <>
