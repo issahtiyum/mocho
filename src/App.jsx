@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import calculateCalories from "./ai";
-import Loader from "./Components/Loader";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -14,7 +13,6 @@ export default function App() {
     const image = e.target.files[0];
     if (image) {
       const imageUrl = URL.createObjectURL(image);
-      // console.log(imageUrl);
       setSelectedImage({ image, imageUrl });
     }
   }
@@ -26,7 +24,7 @@ export default function App() {
           <>
             <img src={selectedImage.imageUrl} alt="Selected Image" />
             {isLoading ? (
-              <span class="loader"></span>
+              <span className="loader"></span>
             ) : (
               <>
                 <div className="buttons-container">
