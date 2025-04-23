@@ -8,7 +8,6 @@ export default function App() {
   const [results, setResults] = useState(null);
   const fileInputRef = useRef(null);
 
-  results && console.table(results);
   function handleInputClick() {
     fileInputRef.current.click();
   }
@@ -16,6 +15,7 @@ export default function App() {
     const image = e.target.files[0];
     if (image) {
       const imageUrl = URL.createObjectURL(image);
+      setResults(null);
       setSelectedImage({ imageFile: image, imageUrl });
     }
   }

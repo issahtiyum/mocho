@@ -1,7 +1,12 @@
 export default function Results({ results }) {
   return (
     <div className="results-container">
-      <h2 className="result-item description">{results.description}</h2>
+      <h2 className="result-item description">
+        {results.description}
+        <span className="confidence-level">
+          {results.confidence * 100}% Sure
+        </span>
+      </h2>
       <div className="figures">
         <div className="result-item estimated-calories">
           <div>
@@ -24,12 +29,12 @@ export default function Results({ results }) {
           </div>
           <span>{results.oilContent}</span>
         </div>
-        <div className="result-item confidence">
+        <div className="result-item health-rating">
           <div>
-            <span>Accuracy</span>
-            <span>💪</span>
+            <span>Health Rating</span>
+            <span>👍</span>
           </div>
-          <span>{results.confidence * 100}%</span>
+          <span>{results.healthRating} / 10</span>
         </div>
         {/* <div className="result-item health-rating">
         Health Rating: {results.healthRating}
