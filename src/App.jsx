@@ -9,6 +9,7 @@ export default function App() {
   const [results, setResults] = useState(null);
   const fileInputRef = useRef(null);
   const dialogRef = useRef(null);
+  const fixResultsInputRef = useRef(null);
 
   function handleInputClick() {
     fileInputRef.current.click();
@@ -52,7 +53,10 @@ export default function App() {
                       >
                         Done
                       </button>
-                      <FixResultsDialog ref={dialogRef} />
+                      <FixResultsDialog
+                        dialogRef={dialogRef}
+                        fixResultsInputRef={fixResultsInputRef}
+                      />
                     </>
                   ) : (
                     <>

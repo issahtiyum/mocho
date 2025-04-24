@@ -191,6 +191,10 @@ p.dialog-subtext {
   font-size: 14px;
 }
 
+.dialog-input::placeholder {
+  font-size: 14px;
+}
+
 .dialog-input:focus {
   outline: 2px solid black;
 }
