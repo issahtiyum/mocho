@@ -109,12 +109,35 @@ button {
   gap: 16px;
 }
 
+.figures > .result-item > span {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
 .confidence-level {
-  /* display: inline-block; */
   padding: 0px 16px;
   border-radius: 10px;
   text-align: end;
   font-size: 13px;
   font-weight: 400;
-  border: 1px solid black;
+}
+.confidence-level.green {
+  color: #065f46;
+  background: #d1fae5;
+  border: 1px solid #065f46;
+}
+.confidence-level.yellow {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #92400e;
+}
+.confidence-level.red {
+  color: rgb(153, 27, 27);
+  background: rgb(254, 226, 226);
+  border: 1px solid rgb(153, 27, 27);
+}
+.confidence-level.orange {
+  color: #f57c00;
+  background: #ffe0b2;
+  border: 1px solid #f57c00;
 }

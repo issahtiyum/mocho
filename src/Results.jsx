@@ -1,9 +1,15 @@
 export default function Results({ results }) {
+  let confidenceColor;
+  if (results.confidence >= 0.8) confidenceColor = "green";
+  else if (results.confidence >= 0.7) confidenceColor = "yellow";
+  else if (results.confidence >= 0.6) confidenceColor = "orange";
+  else confidenceColor = "red";
+
   return (
     <div className="results-container">
       <h2 className="result-item description">
         {results.description}
-        <span className="confidence-level">
+        <span className={"confidence-level " + confidenceColor}>
           {results.confidence * 100}% Sure
         </span>
       </h2>
@@ -37,8 +43,8 @@ export default function Results({ results }) {
           <span>{results.healthRating} / 10</span>
         </div>
         {/* <div className="result-item health-rating">
-        Health Rating: {results.healthRating}
-      </div> */}
+      Health Rating: {results.healthRating}
+    </div> */}
       </div>
       <div className="result-item interesting-fact">
         💡 {results.interestingFact}
