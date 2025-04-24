@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: Poppins;
 }
 
 h1 {
@@ -15,7 +16,7 @@ div.upload-container {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 350px;
+  max-width: 400px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 16px;
@@ -67,4 +68,76 @@ button {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.results-container {
+  margin-top: 24px;
+}
+.results-container > * {
+  margin-bottom: 10px;
+}
+.result-item {
+  background-color: whitesmoke;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.result-item > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.result-item.description {
+  margin-top: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: end;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.figures > .result-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.figures > .result-item > span {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.confidence-level {
+  padding: 0px 16px;
+  border-radius: 10px;
+  text-align: end;
+  font-size: 13px;
+  font-weight: 400;
+}
+.confidence-level.green {
+  color: #065f46;
+  background: #d1fae5;
+  border: 1px solid #065f46;
+}
+.confidence-level.yellow {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #92400e;
+}
+.confidence-level.red {
+  color: rgb(153, 27, 27);
+  background: rgb(254, 226, 226);
+  border: 1px solid rgb(153, 27, 27);
+}
+.confidence-level.orange {
+  color: #f57c00;
+  background: #ffe0b2;
+  border: 1px solid #f57c00;
 }

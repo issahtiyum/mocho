@@ -1,9 +1,11 @@
 import { useRef, useState } from "react";
 import calculateCalories from "./ai";
+import Results from "./Results";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState(null);
   const fileInputRef = useRef(null);
 
   function handleInputClick() {
@@ -13,6 +15,7 @@ export default function App() {
     const image = e.target.files[0];
     if (image) {
       const imageUrl = URL.createObjectURL(image);
+      setResults(null);
       setSelectedImage({ imageFile: image, imageUrl });
     }
   }
@@ -27,12 +30,16 @@ export default function App() {
               <span className="loader"></span>
             ) : (
               <>
+                {results?.description && <Results results={results} />}
+
                 <div className="buttons-container">
                   <button onClick={handleInputClick}>Change Image</button>
                   <button
                     onClick={async () => {
                       setIsLoading(true);
-                      await calculateCalories(selectedImage.imageFile);
+                      setResults(
+                        await calculateCalories(selectedImage.imageFile)
+                      );
                       setIsLoading(false);
                     }}
                   >
