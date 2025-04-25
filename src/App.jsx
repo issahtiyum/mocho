@@ -37,7 +37,6 @@ export default function App() {
             ) : (
               <>
                 {results?.description && <Results results={results} />}
-
                 <div className="buttons-container">
                   {results?.description ? (
                     <>
@@ -56,6 +55,10 @@ export default function App() {
                       <FixResultsDialog
                         dialogRef={dialogRef}
                         fixResultsInputRef={fixResultsInputRef}
+                        setIsLoading={setIsLoading}
+                        setResults={setResults}
+                        calculateCalories={calculateCalories}
+                        selectedImage={selectedImage}
                       />
                     </>
                   ) : (
@@ -67,10 +70,15 @@ export default function App() {
                         className="primary"
                         onClick={async () => {
                           setIsLoading(true);
-                          setResults(
-                            await calculateCalories(selectedImage.imageFile)
-                          );
-                          setIsLoading(false);
+                          try {
+                            setResults(
+                              await calculateCalories(selectedImage.imageFile)
+                            );
+                          } catch (error) {
+                            console.error(error);
+                          } finally {
+                            setIsLoading(false);
+                          }
                         }}
                       >
                         Check Rating

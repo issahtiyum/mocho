@@ -1,13 +1,27 @@
-export default function FixResultsDialog({ dialogRef, fixResultsInputRef }) {
+export default function FixResultsDialog({
+  dialogRef,
+  fixResultsInputRef,
+  setResults,
+  setIsLoading,
+  calculateCalories,
+  selectedImage,
+}) {
   const closeDialog = () => {
     dialogRef.current.close();
   };
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     closeDialog();
     console.log(fixResultsInputRef.current.value);
-    fixResultsInputRef.current.value = "";
+    setIsLoading(true);
+    try {
+      setResults(await calculateCalories(selectedImage.imageFile));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <dialog ref={dialogRef} className="fix-dialog">
