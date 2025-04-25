@@ -5,6 +5,7 @@ export default function FixResultsDialog({
   setIsLoading,
   calculateCalories,
   selectedImage,
+  previousResult,
 }) {
   const closeDialog = () => {
     dialogRef.current.close();
@@ -12,11 +13,17 @@ export default function FixResultsDialog({
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const userCorrection = fixResultsInputRef.current.value;
     closeDialog();
-    console.log(fixResultsInputRef.current.value);
     setIsLoading(true);
     try {
-      setResults(await calculateCalories(selectedImage.imageFile));
+      setResults(
+        await calculateCalories(
+          selectedImage.imageFile,
+          userCorrection,
+          previousResult
+        )
+      );
     } catch (error) {
       console.error(error);
     } finally {

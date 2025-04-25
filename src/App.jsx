@@ -59,6 +59,7 @@ export default function App() {
                         setResults={setResults}
                         calculateCalories={calculateCalories}
                         selectedImage={selectedImage}
+                        previousResult={results}
                       />
                     </>
                   ) : (
