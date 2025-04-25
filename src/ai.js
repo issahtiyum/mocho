@@ -8,7 +8,11 @@ const ai = new GoogleGenAI({
   apiKey: import.meta.env.VITE_GEMINI_API_KEY,
 });
 
-export default async function calculateCalories(uploadedImage) {
+export default async function calculateCalories(
+  uploadedImage,
+  userCorrections,
+  previousResponse
+) {
   const image = await ai.files.upload({
     file: uploadedImage,
     // config: { mimeType: "image/webp" },
@@ -37,12 +41,29 @@ export default async function calculateCalories(uploadedImage) {
         - If you're uncertain about quantity, estimate conservatively but realistically.
         - If the image is unclear or ambiguous, lower the confidence score and make an informed but conservative estimate.
         - Use Ghanaian standards — what's considered a balanced meal locally?
+
+        If the user has provided any hints or corrections, they will be provided. Take these into account and use them to improve your analysis.
+        - If the user provides a correctional hint, revise your response using the hint.
+        - If the hint contradicts your earlier interpretation, prefer the hint but reduce your confidence score, based on how much you disagree with the hint.
+        - Keep unchanged fields unless the hint suggests they should be updated.
+        - You are allowed to change fields like description, calorie count, or ingredients based on the new information.
+        - If no hint is provided, proceed with your best estimate based on the description.
+        - Maintain JSON structure and only change fields affected by the hint.
 `,
     },
     contents: [
       createUserContent([
         `
         The user has uploaded an image of a meal.
+        ${
+          userCorrections &&
+          `The user has also provided the following hint:
+           ${userCorrections},
+           But here is your earlier interpretation:
+           ${previousResponse}
+           Use this hint to revise your previous answer. Output a corrected JSON in the exact same format.
+          `
+        }
         Analyse the image and return the result as a JSON object in the following format:
         {
           "description": "...",
