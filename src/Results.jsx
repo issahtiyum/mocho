@@ -10,7 +10,7 @@ export default function Results({ results }) {
       <h2 className="result-item description">
         {results.description}
         <span className={"confidence-level " + confidenceColor}>
-          {results.confidence * 100}% Sure
+          {results.confidence * 100}% Certainty
         </span>
       </h2>
       <div className="figures">
@@ -19,14 +19,14 @@ export default function Results({ results }) {
             <span>Calories</span>
             <span>🔥</span>
           </div>
-          <span>{results.estimatedCalories}</span>
+          <span>{results.estimatedCaloriesInKcal}</span>
         </div>
         <div className="result-item estimated-mass">
           <div>
             <span>Mass</span>
             <span>⚖️</span>
           </div>
-          <span>{results.estimatedMass}</span>
+          <span>{results.estimatedMassInGrams}</span>
         </div>
         <div className="result-item oil-content">
           <div>
