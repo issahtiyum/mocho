@@ -113,7 +113,7 @@ div.buttons-container {
   gap: 16px;
 }
 
-.figures > .result-item > span {
+.figures > .result-item span.result {
   font-weight: 500;
   text-transform: capitalize;
 }
@@ -146,6 +146,59 @@ div.buttons-container {
   border: 1px solid #f57c00;
 }
 
+.calorie-rating {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: #fddd5b;
+}
+
+.calorie-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.calorie-info > .message {
+  position: absolute;
+  width: 250px;
+  background-color: grey;
+  color: white;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 8px;
+  bottom: -75px;
+  right: -250px;
+  display: none;
+  transition: opacity 300ms;
+}
+
+.calorie-info > .message.green {
+  background-color: #028963;
+  color: white;
+}
+.calorie-info > .message.yellow {
+  background-color: #ecbf0a;
+  color: black;
+}
+.calorie-info > .message.red {
+  background-color: rgb(153, 27, 27);
+  color: white;
+}
+.calorie-info:hover > .message {
+  display: block;
+}
+
+.estimated-calories .result.green {
+  color: #028963;
+}
+.estimated-calories .result.red {
+  color: rgb(153, 27, 27);
+}
+.estimated-calories .result.yellow {
+  color: #ecbf0a;
+}
 .fix-dialog {
   width: 90%;
   max-width: 400px;
