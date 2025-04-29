@@ -70,9 +70,6 @@ export default function Results({ results }) {
           </div>
           <span className="result">{results.healthRating} / 10</span>
         </div>
-        {/* <div className="result-item health-rating">
-      Health Rating: {results.healthRating}
-    </div> */}
       </div>
       <div className="result-item interesting-fact">
         💡 {results.interestingFact}
