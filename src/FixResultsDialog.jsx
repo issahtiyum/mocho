@@ -1,8 +1,12 @@
+import { useState } from "react";
+
 export default function FixResultsDialog({
   dialogRef,
   fixResultsInputRef,
   setResults,
   setIsLoading,
+  setUserCorrection,
+  userCorrection,
   calculateCalories,
   selectedImage,
   previousResult,
@@ -13,14 +17,18 @@ export default function FixResultsDialog({
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const userCorrection = fixResultsInputRef.current.value;
+    const updatedUserCorrections = [
+      ...userCorrection,
+      fixResultsInputRef.current.value.trim(),
+    ];
+    setUserCorrection(updatedUserCorrections);
     closeDialog();
     setIsLoading(true);
     try {
       setResults(
         await calculateCalories(
           selectedImage.imageFile,
-          userCorrection,
+          updatedUserCorrections,
           previousResult
         )
       );

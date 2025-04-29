@@ -20,6 +20,7 @@ export default async function calculateCalories(
   const response = await ai.models.generateContent({
     model: "gemini-1.5-pro",
     config: {
+      temperature: userCorrections?.length > 0 ? 0.3 : 0.7,
       systemInstruction: `You are a friendly nutritionist who specializes in West African and Ghanaian cuisine, keeping in mind local cooking methods and ingredients. The user has provided an image of a meal. Your task is to analyze the image and estimate:
 
         1. A concise list of the foods visible in the image, including their approximate quantity (e.g., “2 scoops of rice”, “3 slices of plantain”). Avoid narrative or speculative language.
@@ -49,6 +50,9 @@ export default async function calculateCalories(
         - Keep unchanged fields unless the hint suggests they should be updated.
         - You are allowed to change fields like description, calorie count, or ingredients based on the new information.
         - If no hint is provided, proceed with your best estimate based on the description.
+        - You must only change fields directly related to the user's hint. 
+        - Do NOT remove or modify other parts of the previous analysis unless the hint specifically requires it.
+        - If uncertain, prefer the user's hint over your own interpretation, but keep unrelated fields exactly the same.
         - Maintain JSON structure and only change fields affected by the hint.
 `,
     },
@@ -57,13 +61,19 @@ export default async function calculateCalories(
         `
         The user has uploaded an image of a meal.
         ${
-          userCorrections &&
-          `The user has also provided the following hint:
-           ${userCorrections},
-           But here is your earlier interpretation:
-           ${previousResponse}
-           Use this hint to revise your previous answer. Output a corrected JSON in the exact same format.
-          `
+          userCorrections?.length > 0 &&
+          `The user has provided the following corrections in an array format:
+          ${JSON.stringify(userCorrections, null, 2)}
+
+          You MUST:
+          - Apply each correction one by one to the previous response.
+          - Only change fields that are directly affected by the correction.
+          - Keep all other parts of the JSON unchanged unless the correction clearly requires it.
+          - If a correction contradicts the previous response, prefer the correction, but lower the confidence score accordingly.
+          - Make sure the final response is still valid JSON using the exact required structure.
+
+          Here is your previous analysis to revise:
+          ${JSON.stringify(previousResponse, null, 2)}`
         }
         Analyse the image and return the result as a JSON object in the following format:
         {
@@ -167,7 +177,7 @@ export default async function calculateCalories(
       ]),
     ],
   });
-
+  console.log(userCorrections);
   const cleanedResponse = response.text.replace(/^```json|```$/g, "").trim();
   return JSON.parse(cleanedResponse);
 }
