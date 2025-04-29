@@ -7,6 +7,7 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
+  const [userCorrection, setUserCorrection] = useState([]);
   const fileInputRef = useRef(null);
   const dialogRef = useRef(null);
   const fixResultsInputRef = useRef(null);
@@ -48,6 +49,7 @@ export default function App() {
                         onClick={() => {
                           setSelectedImage(null);
                           setResults(null);
+                          setUserCorrection([]);
                         }}
                       >
                         Done
@@ -57,6 +59,8 @@ export default function App() {
                         fixResultsInputRef={fixResultsInputRef}
                         setIsLoading={setIsLoading}
                         setResults={setResults}
+                        setUserCorrection={setUserCorrection}
+                        userCorrection={userCorrection}
                         calculateCalories={calculateCalories}
                         selectedImage={selectedImage}
                         previousResult={results}
