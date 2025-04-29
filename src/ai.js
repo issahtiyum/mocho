@@ -177,7 +177,6 @@ export default async function calculateCalories(
       ]),
     ],
   });
-  console.log(userCorrections);
   const cleanedResponse = response.text.replace(/^```json|```$/g, "").trim();
   return JSON.parse(cleanedResponse);
 }
