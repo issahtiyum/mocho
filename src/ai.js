@@ -10,7 +10,7 @@ const ai = new GoogleGenAI({
 
 export default async function calculateCalories(
   uploadedImage,
-  userCorrections,
+  userCorrections = null,
   previousResponse
 ) {
   const image = await ai.files.upload({
@@ -44,7 +44,8 @@ export default async function calculateCalories(
 
         If the user has provided any hints or corrections, they will be provided. Take these into account and use them to improve your analysis.
         - If the user provides a correctional hint, revise your response using the hint.
-        - If the hint contradicts your earlier interpretation, prefer the hint but reduce your confidence score, based on how much you disagree with the hint.
+        - The user might provide local food names, so be culturally aware of the food names and terms common in Ghana, and West Africa (e.g., waakye, kenkey, shito, etc.).
+        - If the hint contradicts your earlier interpretation, prefer the hint but reduce your confidence score.
         - Keep unchanged fields unless the hint suggests they should be updated.
         - You are allowed to change fields like description, calorie count, or ingredients based on the new information.
         - If no hint is provided, proceed with your best estimate based on the description.
