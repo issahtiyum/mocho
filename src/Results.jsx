@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
 export default function Results({ results }) {
@@ -25,6 +26,7 @@ export default function Results({ results }) {
 
   return (
     <div className="results-container">
+      <Analytics />
       <h2 className="result-item description">
         {results.description}
         <span className={"confidence-level " + confidenceColor}>
