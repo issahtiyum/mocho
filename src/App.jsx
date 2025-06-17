@@ -8,13 +8,13 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [userCorrection, setUserCorrection] = useState([]);
+
   const fileInputRef = useRef(null);
   const dialogRef = useRef(null);
   const fixResultsInputRef = useRef(null);
 
-  function handleInputClick() {
-    fileInputRef.current.click();
-  }
+  const handleInputClick = () => fileInputRef.current.click();
+
   function handleImageUpload(e) {
     const image = e.target.files[0];
     if (image) {
@@ -23,9 +23,23 @@ export default function App() {
       setSelectedImage({ imageFile: image, imageUrl });
     }
   }
-  const openDialog = () => {
-    dialogRef.current.showModal();
-  };
+  function handleReset() {
+    setSelectedImage(null);
+    setResults(null);
+    setUserCorrection([]);
+  }
+  async function handleResult() {
+    setIsLoading(true);
+    try {
+      setResults(await calculateCalories(selectedImage.imageFile));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  const openDialog = () => dialogRef.current.showModal();
+
   return (
     <>
       <h1>Mocho</h1>
@@ -44,14 +58,7 @@ export default function App() {
                       <button onClick={openDialog} className="primary">
                         Fix Results
                       </button>
-                      <button
-                        className="primary"
-                        onClick={() => {
-                          setSelectedImage(null);
-                          setResults(null);
-                          setUserCorrection([]);
-                        }}
-                      >
+                      <button className="primary" onClick={handleReset}>
                         Done
                       </button>
                       <FixResultsDialog
@@ -71,21 +78,7 @@ export default function App() {
                       <button onClick={handleInputClick} className="primary">
                         Change Image
                       </button>
-                      <button
-                        className="primary"
-                        onClick={async () => {
-                          setIsLoading(true);
-                          try {
-                            setResults(
-                              await calculateCalories(selectedImage.imageFile)
-                            );
-                          } catch (error) {
-                            console.error(error);
-                          } finally {
-                            setIsLoading(false);
-                          }
-                        }}
-                      >
+                      <button className="primary" onClick={handleResult}>
                         Check Rating
                       </button>
                     </>
