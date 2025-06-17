@@ -18,7 +18,7 @@ export default async function calculateCalories(
     // config: { mimeType: "image/webp" },
   });
   const response = await ai.models.generateContent({
-    model: "gemini-1.5-pro",
+    model: "gemini-2.0-flash",
     config: {
       temperature: userCorrections?.length > 0 ? 0.3 : 0.7,
       systemInstruction: `You are a friendly nutritionist who specializes in West African and Ghanaian cuisine, keeping in mind local cooking methods and ingredients. The user has provided an image of a meal. Your task is to analyze the image and estimate:
